@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Book Appointment - Hospital Management System</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f4f8fc, #eaf3f8);
+            color: #1e293b;
+        }
+
+        /* ================= HEADER ================= */
+
+        header {
+            background: linear-gradient(135deg, #12344d, #176b87);
+            color: white;
+            padding: 28px 7%;
+            box-shadow: 0 4px 18px rgba(15, 45, 65, 0.18);
+        }
+
+        .header-content {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        header h1 {
+            font-size: 31px;
+            font-weight: 700;
+            margin-bottom: 7px;
+        }
+
+        header p {
+            font-size: 16px;
+            color: #dbeaf1;
+        }
+
+        /* ================= CONTAINER ================= */
+
+        .container {
+            width: 90%;
+            max-width: 720px;
+            margin: 42px auto;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.97);
+            padding: 38px;
+            border-radius: 18px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 10px 30px rgba(15, 45, 65, 0.08);
+        }
+
+        /* ================= TITLE ================= */
+
+        .title-area {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .title-icon {
+            width: 58px;
+            height: 58px;
+
+            margin: 0 auto 14px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #e8f5f8;
+            border-radius: 16px;
+
+            color: #126782;
+            font-size: 28px;
+            font-weight: bold;
+
+            box-shadow: inset 0 0 0 1px #d4ebf0;
+        }
+
+        h2 {
+            color: #164e63;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 7px;
+        }
+
+        .subtitle {
+            color: #64748b;
+            font-size: 15px;
+        }
+
+        /* ================= FORM ================= */
+
+        .form-group {
+            margin-bottom: 21px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+
+            font-size: 14px;
+            font-weight: 600;
+            color: #334155;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+
+            padding: 13px 14px;
+
+            border: 1px solid #cbd5e1;
+            border-radius: 9px;
+
+            background: #ffffff;
+
+            color: #1e293b;
+            font-size: 15px;
+
+            outline: none;
+
+            transition: border-color 0.2s ease,
+                        box-shadow 0.2s ease;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #94a3b8;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #167d99;
+            box-shadow: 0 0 0 3px rgba(22, 125, 153, 0.10);
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 105px;
+        }
+
+        /* ================= DATE + TIME ================= */
+
+        .date-time {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        /* ================= TIME ================= */
+
+        .time-select {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr 1.2fr;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .time-select select {
+            width: 100%;
+        }
+
+        .time-select span {
+            font-size: 20px;
+            font-weight: bold;
+            color: #475569;
+            text-align: center;
+        }
+
+        /* ================= BUTTONS ================= */
+
+        .buttons {
+            display: flex;
+            gap: 14px;
+            margin-top: 30px;
+        }
+
+        button,
+        .back-btn {
+            flex: 1;
+
+            padding: 13px 20px;
+
+            border: none;
+            border-radius: 9px;
+
+            font-size: 15px;
+            font-weight: 600;
+
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+
+            transition: all 0.2s ease;
+        }
+
+        button {
+            background: #167d99;
+            color: white;
+        }
+
+        button:hover {
+            background: #105f76;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 15px rgba(22, 125, 153, 0.22);
+        }
+
+        .back-btn {
+            background: #64748b;
+            color: white;
+        }
+
+        .back-btn:hover {
+            background: #475569;
+            transform: translateY(-1px);
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 600px) {
+
+            header {
+                padding: 24px 20px;
+            }
+
+            header h1 {
+                font-size: 25px;
+            }
+
+            header p {
+                font-size: 14px;
+            }
+
+            .container {
+                width: 94%;
+                margin: 30px auto;
+            }
+
+            .card {
+                padding: 27px 22px;
+                border-radius: 16px;
+            }
+
+            h2 {
+                font-size: 25px;
+            }
+
+            .date-time {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .time-select {
+                grid-template-columns: 1fr auto 1fr 1.2fr;
+                gap: 7px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            button,
+            .back-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="header-content">
+
+        <h1>Hospital Management System</h1>
+
+        <p>
+            Appointment Management
+        </p>
+
+    </div>
+</header>
+
+
+<div class="container">
+
+    <div class="card">
+
+        <!-- TITLE -->
+
+        <div class="title-area">
+
+            <div class="title-icon">
+                +
+            </div>
+
+            <h2>
+                Book New Appointment
+            </h2>
+
+            <p class="subtitle">
+                Enter appointment details to schedule a visit.
+            </p>
+
+        </div>
+
+
+        <!-- FORM -->
+
+        <form th:action="@{/appointments/add}"
+              th:object="${appointment}"
+              method="post">
+
+
+            <!-- PATIENT NAME -->
+
+            <div class="form-group">
+
+                <label for="patientName">
+                    Patient Name
+                </label>
+
+                <input type="text"
+                       id="patientName"
+                       th:field="*{patientName}"
+                       placeholder="Enter patient name"
+                       required>
+
+            </div>
+
+
+            <!-- DOCTOR -->
+
+            <div class="form-group">
+
+                <label for="doctorName">
+                    Doctor
+                </label>
+
+                <select id="doctorName"
+                        th:field="*{doctorName}"
+                        required>
+
+                    <option value="">
+                        Select Doctor
+                    </option>
+
+                    <option th:each="doctor : ${doctors}"
+                            th:value="${doctor.name}"
+                            th:text="${doctor.name + ' — ' + doctor.specialization}">
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- DATE -->
+
+            <div class="form-group">
+
+                <label for="appointmentDate">
+                    Appointment Date
+                </label>
+
+                <input type="date"
+                       id="appointmentDate"
+                       th:field="*{appointmentDate}"
+                       required>
+
+            </div>
+
+
+            <!-- TIME -->
+
+            <div class="form-group">
+
+                <label>
+                    Appointment Time
+                </label>
+
+                <div class="time-select">
+
+                    <!-- HOUR -->
+
+                    <select id="hour" required>
+
+                        <option value="">
+                            Hour
+                        </option>
+
+                        <option value="01">01</option>
+                        <option value="02">02</option>
+                        <option value="03">03</option>
+                        <option value="04">04</option>
+                        <option value="05">05</option>
+                        <option value="06">06</option>
+                        <option value="07">07</option>
+                        <option value="08">08</option>
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+
+                    </select>
+
+
+                    <span>:</span>
+
+
+                    <!-- MINUTE -->
+
+                    <select id="minute" required>
+
+                        <option value="">
+                            Minute
+                        </option>
+
+                        <option value="00">00</option>
+                        <option value="15">15</option>
+                        <option value="30">30</option>
+                        <option value="45">45</option>
+
+                    </select>
+
+
+                    <!-- AM / PM -->
+
+                    <select id="ampm" required>
+
+                        <option value="">
+                            AM/PM
+                        </option>
+
+                        <option value="AM">
+                            AM
+                        </option>
+
+                        <option value="PM">
+                            PM
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Hidden field sent to Spring Boot -->
+
+                <input type="hidden"
+                       id="appointmentTime"
+                       th:field="*{appointmentTime}">
+
+            </div>
+
+
+            <!-- REASON -->
+
+            <div class="form-group">
+
+                <label for="reason">
+                    Reason for Visit
+                </label>
+
+                <textarea id="reason"
+                          th:field="*{reason}"
+                          placeholder="Enter reason for appointment"
+                          required></textarea>
+
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="buttons">
+
+                <button type="submit">
+                    Book Appointment
+                </button>
+
+                <a href="/appointments"
+                   class="back-btn">
+                    ← Back
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- TIME JAVASCRIPT -->
+
+<script>
+
+    const hour =
+        document.getElementById("hour");
+
+    const minute =
+        document.getElementById("minute");
+
+    const ampm =
+        document.getElementById("ampm");
+
+    const appointmentTime =
+        document.getElementById("appointmentTime");
+
+
+    function updateTime() {
+
+        if (
+            hour.value &&
+            minute.value &&
+            ampm.value
+        ) {
+
+            appointmentTime.value =
+                hour.value +
+                ":" +
+                minute.value +
+                " " +
+                ampm.value;
+
+        }
+
+    }
+
+
+    hour.addEventListener(
+        "change",
+        updateTime
+    );
+
+    minute.addEventListener(
+        "change",
+        updateTime
+    );
+
+    ampm.addEventListener(
+        "change",
+        updateTime
+    );
+
+</script>
+
+</body>
+
+</html>

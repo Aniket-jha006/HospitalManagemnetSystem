@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Hospital Management System</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f4f8fc, #eaf3f8);
+            color: #1e293b;
+        }
+
+        /* ================= HEADER ================= */
+
+        header {
+            background: linear-gradient(135deg, #12344d, #176b87);
+            color: white;
+            padding: 28px 7%;
+            box-shadow: 0 4px 18px rgba(15, 45, 65, 0.18);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            margin-bottom: 7px;
+        }
+
+        header p {
+            font-size: 16px;
+            color: #dbeaf1;
+        }
+
+        /* ================= MAIN ================= */
+
+        .container {
+            width: 90%;
+            max-width: 1150px;
+            margin: 48px auto;
+        }
+
+        .welcome {
+            text-align: center;
+            margin-bottom: 42px;
+        }
+
+        .welcome h2 {
+            font-size: 32px;
+            color: #123f59;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .welcome p {
+            font-size: 17px;
+            color: #64748b;
+        }
+
+        /* ================= CARDS ================= */
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+
+        .card {
+            position: relative;
+            background: rgba(255, 255, 255, 0.96);
+            padding: 38px 28px 32px;
+            border-radius: 18px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 10px 30px rgba(15, 45, 65, 0.08);
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease,
+                border-color 0.25s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 18px 38px rgba(15, 45, 65, 0.14);
+            border-color: #8fc8d8;
+        }
+
+        /* ================= IMAGE ICON ================= */
+
+        .icon-box {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 22px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 24px;
+            background: #e8f5f8;
+
+            box-shadow: inset 0 0 0 1px #d4ebf0;
+
+            overflow: hidden;
+        }
+
+        .icon-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* Appointment icon */
+
+        .appointment-icon {
+            font-size: 55px;
+            color: #126782;
+        }
+
+        .card h3 {
+            color: #164e63;
+            font-size: 23px;
+            margin-bottom: 11px;
+            font-weight: 700;
+        }
+
+        .card p {
+            color: #64748b;
+            font-size: 15.5px;
+            line-height: 1.6;
+            min-height: 50px;
+            margin-bottom: 25px;
+        }
+
+        /* ================= BUTTON ================= */
+
+        .btn {
+            display: inline-block;
+            width: 100%;
+            max-width: 190px;
+
+            background: #167d99;
+            color: white;
+
+            text-decoration: none;
+            padding: 13px 20px;
+
+            border-radius: 9px;
+
+            font-size: 15px;
+            font-weight: 600;
+
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            background: #105f76;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 15px rgba(22, 125, 153, 0.25);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            text-align: center;
+            color: #718096;
+            margin-top: 55px;
+            padding: 25px 15px 35px;
+            font-size: 14px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 900px) {
+
+            .cards {
+                grid-template-columns: 1fr;
+                max-width: 520px;
+                margin: auto;
+            }
+
+            .card {
+                padding: 34px 28px;
+            }
+
+            .welcome h2 {
+                font-size: 27px;
+            }
+
+            header {
+                padding: 25px 6%;
+            }
+
+            header h1 {
+                font-size: 27px;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            .container {
+                width: 90%;
+                margin: 35px auto;
+            }
+
+            header {
+                padding: 23px 20px;
+            }
+
+            header h1 {
+                font-size: 24px;
+            }
+
+            header p {
+                font-size: 14px;
+            }
+
+            .welcome {
+                margin-bottom: 30px;
+            }
+
+            .welcome h2 {
+                font-size: 24px;
+            }
+
+            .welcome p {
+                font-size: 15px;
+            }
+
+            .card {
+                border-radius: 16px;
+            }
+
+            .icon-box {
+                width: 110px;
+                height: 110px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="header-content">
+        <h1>Hospital Management System</h1>
+        <p>Manage patients, doctors and appointments efficiently</p>
+    </div>
+</header>
+
+<div class="container">
+
+    <div class="welcome">
+        <h2>Welcome to Hospital Management System</h2>
+        <p>Select an option below to manage hospital records.</p>
+    </div>
+
+    <div class="cards">
+
+        <!-- ================= PATIENTS ================= -->
+
+        <div class="card">
+
+            <div class="icon-box">
+                <img src="/images/patient.png"
+                     alt="Patient">
+            </div>
+
+            <h3>Patients</h3>
+
+            <p>
+                View and manage patient records,
+                details and medical information.
+            </p>
+
+            <a href="/patients" class="btn">
+                View Patients
+            </a>
+
+        </div>
+
+
+        <!-- ================= DOCTORS ================= -->
+
+        <div class="card">
+
+            <div class="icon-box">
+                <img src="/images/doctor.png"
+                     alt="Doctor">
+            </div>
+
+            <h3>Doctors</h3>
+
+            <p>
+                View and manage doctors,
+                specializations and contact information.
+            </p>
+
+            <a href="/doctors" class="btn">
+                View Doctors
+            </a>
+
+        </div>
+
+
+        <!-- ================= APPOINTMENTS ================= -->
+
+        <div class="card">
+
+            <div class="icon-box appointment-icon">
+                📋
+            </div>
+
+            <h3>Appointments</h3>
+
+            <p>
+                Schedule and manage patient
+                appointments with doctors.
+            </p>
+
+            <a href="/appointments" class="btn">
+                View Appointments
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<footer>
+    <p>© 2026 Hospital Management System &nbsp;•&nbsp; All Rights Reserved</p>
+</footer>
+
+</body>
+</html>

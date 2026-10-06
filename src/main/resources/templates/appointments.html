@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Appointments - Hospital Management System</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f4f8fc, #eaf3f8);
+            color: #1e293b;
+        }
+
+        /* ================= HEADER ================= */
+
+        header {
+            background: linear-gradient(135deg, #12344d, #176b87);
+            color: white;
+            padding: 28px 7%;
+            box-shadow: 0 4px 18px rgba(15, 45, 65, 0.18);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        header h1 {
+            font-size: 31px;
+            font-weight: 700;
+            margin-bottom: 7px;
+        }
+
+        header p {
+            font-size: 16px;
+            color: #dbeaf1;
+        }
+
+        /* ================= CONTAINER ================= */
+
+        .container {
+            width: 92%;
+            max-width: 1250px;
+            margin: 42px auto;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.97);
+            padding: 32px;
+            border-radius: 18px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 10px 30px rgba(15, 45, 65, 0.08);
+        }
+
+        /* ================= TOP SECTION ================= */
+
+        .top-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+            gap: 20px;
+        }
+
+        .title-area {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .title-icon {
+            width: 52px;
+            height: 52px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #e8f5f8;
+            border-radius: 14px;
+
+            color: #126782;
+            font-size: 27px;
+
+            box-shadow: inset 0 0 0 1px #d4ebf0;
+        }
+
+        .top-section h2 {
+            color: #164e63;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        /* ================= ADD BUTTON ================= */
+
+        .add-btn {
+            display: inline-block;
+
+            background: #167d99;
+            color: white;
+
+            text-decoration: none;
+            padding: 13px 21px;
+
+            border-radius: 9px;
+
+            font-weight: 600;
+            font-size: 15px;
+
+            transition: all 0.2s ease;
+        }
+
+        .add-btn:hover {
+            background: #105f76;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 15px rgba(22, 125, 153, 0.22);
+        }
+
+        /* ================= TABLE ================= */
+
+        .table-wrapper {
+            overflow-x: auto;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1000px;
+        }
+
+        th {
+            background: #164e63;
+            color: white;
+
+            padding: 15px 16px;
+            text-align: left;
+
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+        }
+
+        td {
+            padding: 15px 16px;
+
+            border-bottom: 1px solid #e2e8f0;
+
+            font-size: 15px;
+            color: #334155;
+        }
+
+        tbody tr {
+            transition: background 0.15s ease;
+        }
+
+        tbody tr:hover {
+            background: #f1f8fa;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* ================= TIME ================= */
+
+        .time {
+            font-weight: 600;
+            color: #164e63;
+            white-space: nowrap;
+        }
+
+        /* ================= DATE ================= */
+
+        .date {
+            font-weight: 600;
+            color: #334155;
+            white-space: nowrap;
+        }
+
+        /* ================= EMPTY ================= */
+
+        .empty {
+            text-align: center;
+            padding: 40px !important;
+            color: #64748b;
+            font-size: 16px;
+        }
+
+        /* ================= BACK BUTTON ================= */
+
+        .back {
+            display: inline-block;
+
+            margin-top: 26px;
+
+            background: #64748b;
+            color: white;
+
+            text-decoration: none;
+
+            padding: 12px 20px;
+            border-radius: 9px;
+
+            font-weight: 600;
+            font-size: 15px;
+
+            transition: all 0.2s ease;
+        }
+
+        .back:hover {
+            background: #475569;
+            transform: translateY(-1px);
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 700px) {
+
+            header {
+                padding: 24px 6%;
+            }
+
+            header h1 {
+                font-size: 25px;
+            }
+
+            header p {
+                font-size: 14px;
+            }
+
+            .container {
+                width: 94%;
+                margin: 30px auto;
+            }
+
+            .card {
+                padding: 22px;
+                border-radius: 16px;
+            }
+
+            .top-section {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .title-area {
+                justify-content: flex-start;
+            }
+
+            .top-section h2 {
+                font-size: 25px;
+            }
+
+            .add-btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .back {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="header-content">
+
+        <h1>Hospital Management System</h1>
+
+        <p>Appointment Management</p>
+
+    </div>
+
+</header>
+
+
+<div class="container">
+
+    <div class="card">
+
+        <!-- ================= TOP SECTION ================= -->
+
+        <div class="top-section">
+
+            <div class="title-area">
+
+                <div class="title-icon">
+                    📅
+                </div>
+
+                <h2>Appointments</h2>
+
+            </div>
+
+
+            <a href="/appointments/add" class="add-btn">
+                + Book Appointment
+            </a>
+
+        </div>
+
+
+        <!-- ================= TABLE ================= -->
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Appointment ID</th>
+
+                        <th>Patient Name</th>
+
+                        <th>Doctor Name</th>
+
+                        <th>Appointment Date</th>
+
+                        <th>Appointment Time</th>
+
+                        <th>Reason</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    <!-- Appointment Records -->
+
+                    <tr th:each="appointment : ${appointments}">
+
+                        <td th:text="${appointment.id}">
+                        </td>
+
+
+                        <td th:text="${appointment.patientName}">
+                        </td>
+
+
+                        <td th:text="${appointment.doctorName}">
+                        </td>
+
+
+                        <td class="date"
+                            th:text="${appointment.appointmentDate}">
+                        </td>
+
+
+                        <!--
+                            Time initially comes from database
+                            in 24-hour format.
+
+                            JavaScript converts it to AM/PM.
+                        -->
+
+                        <td class="time appointment-time"
+                            th:text="${appointment.appointmentTime}">
+                        </td>
+
+
+                        <td th:text="${appointment.reason}">
+                        </td>
+
+                    </tr>
+
+
+                    <!-- Empty Table -->
+
+                    <tr th:if="${#lists.isEmpty(appointments)}">
+
+                        <td colspan="6" class="empty">
+
+                            No appointments found.
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- ================= BACK BUTTON ================= -->
+
+        <a href="/" class="back">
+
+            ← Back to Dashboard
+
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- ================= AM / PM CONVERSION ================= -->
+
+<script>
+
+    document.querySelectorAll(".appointment-time").forEach(function (element) {
+
+        const time = element.textContent.trim();
+
+        // If time is empty, do nothing
+        if (!time) {
+            return;
+        }
+
+        const parts = time.split(":");
+
+        // Expected format: HH:mm
+        if (parts.length < 2) {
+            return;
+        }
+
+        let hours = parseInt(parts[0]);
+        let minutes = parts[1];
+
+        // Decide AM or PM
+        const period = hours >= 12 ? "PM" : "AM";
+
+        // Convert 24-hour format to 12-hour format
+        hours = hours % 12;
+
+        // 00:mm becomes 12:mm AM
+        if (hours === 0) {
+            hours = 12;
+        }
+
+        // Display final time
+        element.textContent =
+            String(hours).padStart(2, "0")
+            + ":"
+            + minutes
+            + " "
+            + period;
+
+    });
+
+</script>
+
+</body>
+
+</html>
